@@ -121,10 +121,12 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 $(document).ready(function () {
   $(".loginSection").show();
   $(".registerSection").hide();
+  $("#errMsg").hide();
   $("#BtnReg").click(handleRegister);
-  $("#Chk").click(getLocation);
+  $("#Chk").click(getLocation); //login
+
+  $("#btnLogin").click(goToApi);
   $("#Chk").click(showPosition);
-  $("#Chk").click(getAddress);
 });
 
 function handleRegister() {
@@ -148,6 +150,29 @@ function showPosition(position) {
   x.innerHTML = "Latitude: " + lat;
   y.innerHTML = "Longitude: " + lng;
   geocodeLatLng(position.coords.latitude, position.coords.longitude);
+}
+
+function goToApi(event) {
+  event.preventDefault();
+  var username = $("#login__username").val();
+  var apiUrl = 'https://$HOST/api/login?';
+  $.ajax({
+    url: apiUrl,
+    success: function success(json) {
+      $("#errorMessage").hide();
+      $("#loginSection").hide();
+      $("#userSection").show();
+    },
+    error: function error(XMLHttpRequest, textStatus, errorThrown) {
+      alert(textStatus, errorThrown);
+    },
+    //headers: {'Authorization': 'Basic bWFkaHNvbWUxMjM='},
+    beforeSend: function beforeSend(xhr) {
+      xhr.setRequestHeader("Authorization", "Basic " + btoa(username));
+    },
+    type: 'GET',
+    contentType: 'json'
+  });
 }
 },{}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -177,7 +202,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50307" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56096" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -15,11 +15,16 @@
 
 <div style="overflow:auto">
   <div class="menu">
+    <p></p>
+  </div>
+
+  <main class="main">
+    
     <section class="loginSection">
       <fieldset class="loginForm">
           <h2>login</h2>
           <br>
-          <input class="login__username" placeholder="Username" type="text">
+          <input id="login__username" class="login__username" placeholder="Username" type="text">
           <br>
           <button id="BtnLogin"  class="btn login" type="submit">Login</button>
           <br>
@@ -31,39 +36,34 @@
       <fieldset class="registerForm">
           <h2>Register</h2>
           <hr>
-          <input class="login__username" placeholder="Username" type="text">
+          <input class="login__username" placeholder="Username" type="text" required>
           <br><hr>
-          <input id="Chk" type="checkbox" name="location" value="location"> Allow to get the geplocation? </input>
+          <input id="Chk" type="checkbox" name="location" value="location" required> Allow to get the geplocation? </input>
           <br><hr>
           <label for="cars">Do you have Covid19:</label>
-          <select id="hasCovid">
+          <select id="hasCovid" required>
             <option value="true">Yes</option>
             <option value="false">No</option>
           </select>
           <hr>
+          <p id="errMsg" class="errMsg">Username already exists</p>
           <p id="chkLat"></p>
           <p id="chkLng"></p>
           <p id="chkCity"></p>
           <p id="xxx"></p>
           <br>
-          <button class="btn register-req">Register</button>
+          <button class="btn__register-req">Register</button>
           
       </fieldset>
     </section>
-  </div>
 
-  <main class="main">
-    <h2></h2>
-    
   </main>
 
   <div class="right">
-    <h2>latest</h2>
-    <p>Latest updated</p>
   </div>
 </div>
 
-<div style="background-color:#e5e5e5;text-align:center;padding:10px;margin-top:7px;">© Marsil</div>
+<div style="background-color:#e5e5e5;text-align:center;padding:10px;margin-top:7px;">© </div>
 
 </body>
 </html>

@@ -19,9 +19,10 @@
     float:left;
     width:60%;
     padding:0 20px;
+    text-align:center;
   }
   .right {
-    background-color:#e5e5e5;
+
     float:left;
     width:20%;
     padding:15px;
@@ -53,6 +54,9 @@
   }
   p {
     margin: 1px;
+  }
+  .errMsg{
+    color: red;
   }
   .btn:hover {background: #eee;}
 

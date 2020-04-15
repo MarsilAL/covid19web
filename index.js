@@ -1,10 +1,14 @@
 $(document).ready(function () {
 $(".loginSection").show();
 $(".registerSection").hide();
+$("#errMsg").hide();
+
 $("#BtnReg").click(handleRegister);
 $("#Chk").click(getLocation);
+
+//login
+$("#btnLogin").click(goToApi);
 $("#Chk").click(showPosition);
-$("#Chk").click(getAddress);
 
 
 
@@ -32,4 +36,32 @@ function showPosition(position) {
         x.innerHTML="Latitude: " + lat;
         y.innerHTML="Longitude: " + lng;
         geocodeLatLng(position.coords.latitude, position.coords.longitude);
+}
+
+function goToApi(event){
+  event.preventDefault();
+
+  const username = $("#login__username").val();
+ 
+
+
+  const apiUrl = 'https://$HOST/api/login?';
+  $.ajax({
+      url: apiUrl,
+      success: function (json) {
+          $("#errorMessage").hide();
+          $("#loginSection").hide();
+          $("#userSection").show();
+      },
+      error: function (XMLHttpRequest, textStatus, errorThrown) {
+          alert(textStatus, errorThrown);
+      },
+
+      //headers: {'Authorization': 'Basic bWFkaHNvbWUxMjM='},
+      beforeSend: function (xhr) {
+          xhr.setRequestHeader("Authorization", "Basic " + btoa(username));
+      },
+      type: 'GET',
+      contentType: 'json',
+  });
 }
