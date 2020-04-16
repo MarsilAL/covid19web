@@ -36,11 +36,11 @@
       <fieldset class="registerForm">
           <h2>Register</h2>
           <hr>
-          <input class="login__username" placeholder="Username" type="text" required>
+          <input class="reg__username" id="reg__username" placeholder="Username" type="text" required>
           <br><hr>
-          <input id="Chk" type="checkbox" name="location" value="location" required> Allow to get the geplocation? </input>
+          <input id="Chk" type="checkbox" name="location" value="location" required> Allow to get the geolocation? </input>
           <br><hr>
-          <label for="cars">Do you have Covid19:</label>
+          <label for="hasCovid">Do you have Covid19:</label>
           <select id="hasCovid" required>
             <option value="true">Yes</option>
             <option value="false">No</option>
@@ -52,7 +52,7 @@
           <p id="chkCity"></p>
           <p id="xxx"></p>
           <br>
-          <button class="btn__register-req">Register</button>
+          <button class="btn__register-req" id="btn__register-req">Register</button>
           
       </fieldset>
     </section>
