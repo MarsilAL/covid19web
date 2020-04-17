@@ -3,7 +3,7 @@ const jquery = require('jquery')
 $ = window.$ = window.jQuery = jquery;
 
 function register(username, hasCovid, lat, lng){
-    const apiUrl = 'http://localhost:8080/register';
+    const apiUrl = 'https://covid19ta.herokuapp.com/register';
    return $.ajax({
         url: apiUrl,
         data:{
