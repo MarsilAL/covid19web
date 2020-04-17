@@ -11217,7 +11217,7 @@ var jquery = require('jquery'); //
 $ = window.$ = window.jQuery = jquery;
 
 function register(username, hasCovid, lat, lng) {
-  var apiUrl = 'http://localhost:8080/register';
+  var apiUrl = 'https://covid19ta.herokuapp.com/register';
   return $.ajax({
     url: apiUrl,
     data: {
@@ -11234,10 +11234,40 @@ function register(username, hasCovid, lat, lng) {
     contentType: 'json'
   });
 }
+},{"jquery":"node_modules/jquery/dist/jquery.js"}],"loginService.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.login = login;
+
+var jquery = require('jquery'); //
+
+
+$ = window.$ = window.jQuery = jquery;
+
+function login(loginUsername) {
+  var apiUrl = 'https://covid19ta.herokuapp.com/login';
+  return $.ajax({
+    url: apiUrl,
+    data: {
+      loginUsername: loginUsername
+    },
+    //headers: {'Authorization': 'Basic bWFkaHNvbWUxMjM='},
+    beforeSend: function beforeSend(xhr) {
+      xhr.setRequestHeader("Authorization", "Basic " + btoa(loginUsername));
+    },
+    type: 'GET',
+    contentType: 'json'
+  });
+}
 },{"jquery":"node_modules/jquery/dist/jquery.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _registerService = require("./registerService");
+
+var _loginService = require("./loginService");
 
 var jquery = require('jquery'); //
 
@@ -11281,7 +11311,8 @@ function showPosition(position) {
   var y = document.getElementById("chkLng");
   x.innerHTML = "Latitude: " + lat;
   y.innerHTML = "Longitude: " + lng;
-}
+} /// Register
+
 
 function handelRegisterClick(event) {
   event.preventDefault();
@@ -11292,16 +11323,31 @@ function handelRegisterClick(event) {
   }).catch(function () {
     alert("fehler");
   });
-}
+} /// Login
+
+
+function handelLoginClick(event) {
+  event.preventDefault();
+  var loginUsername = $("#login__username").val();
+  (0, _loginService.login)(loginUsername).then(function () {
+    showUserView();
+  }).catch(function () {
+    alert("anmeldung fehler");
+  });
+} /// Document ready
+
 
 $(document).ready(function () {
   showLoginView();
   $("#BtnReg").click(showRegisterView);
-  $("#Chk").click(getLocation);
-  $("#btn__register-req").click(handelRegisterClick);
+  $("#Chk").click(getLocation); /// Register
+
+  $("#btn__register-req").click(handelRegisterClick); /// Login
+
+  $("#BtnLogin").click(handelLoginClick);
   $("#Chk").click(showPosition);
 });
-},{"./registerService":"registerService.js","jquery":"node_modules/jquery/dist/jquery.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./registerService":"registerService.js","./loginService":"loginService.js","jquery":"node_modules/jquery/dist/jquery.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -11329,7 +11375,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56404" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50487" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -1,4 +1,5 @@
 import { register } from "./registerService"
+import { login } from "./loginService"
 const jquery = require('jquery')
 //
 $ = window.$ = window.jQuery = jquery;
@@ -43,6 +44,8 @@ function showPosition(position) {
   y.innerHTML = "Longitude: " + lng;
 }
 
+
+/// Register
 function handelRegisterClick(event) {
   event.preventDefault();
 
@@ -56,12 +59,34 @@ function handelRegisterClick(event) {
 }
 
 
+/// Login
+function handelLoginClick(event) {
+  event.preventDefault();
+
+  const loginUsername = $("#login__username").val();
+
+  login(loginUsername).then(() => {
+    showUserView();
+  }).catch(() => {
+    alert("anmeldung fehler");
+  })
+}
+
+
+
+
+/// Document ready
 $(document).ready(function () {
   showLoginView();
   $("#BtnReg").click(showRegisterView);
   $("#Chk").click(getLocation);
  
+  /// Register
   $("#btn__register-req").click(handelRegisterClick)
+
+
+  /// Login
+  $("#BtnLogin").click(handelLoginClick)
 
   $("#Chk").click(showPosition);
 
