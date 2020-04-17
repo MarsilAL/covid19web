@@ -4,7 +4,8 @@
   "description": "Covid Tracker",
   "main": "index.js",
   "scripts": {
-    "test": "parcel index.html"
+    "test": "parcel index.html",
+    "build": "parcel build index.html --out-dir docs  --public-url ."
   },
   "keywords": [
     "covid19",
