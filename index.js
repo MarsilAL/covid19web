@@ -50,7 +50,7 @@ function handelRegisterClick(event) {
   event.preventDefault();
 
   const username = $("#reg__username").val();
-  const hasCovid = $("#hasCovid").val();
+  const hasCovid = $("#hasCovid").val()=="true";
   register(username, hasCovid, lat, lng).then(() => {
     showUserView();
   }).catch(() => {

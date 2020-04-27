@@ -11217,21 +11217,20 @@ var jquery = require('jquery'); //
 $ = window.$ = window.jQuery = jquery;
 
 function register(username, hasCovid, lat, lng) {
-  var apiUrl = 'https://covid19ta.herokuapp.com/register';
+  // we will send this to the backend
+  var userPayload = {
+    username: username,
+    hasCovid: hasCovid,
+    latitude: lat,
+    longitude: lng
+  };
+  var apiUrl = 'http://localhost:8080/register';
   return $.ajax({
     url: apiUrl,
-    data: {
-      username: username,
-      hasCovid: hasCovid,
-      lat: lat,
-      lng: lng
-    },
-    //headers: {'Authorization': 'Basic bWFkaHNvbWUxMjM='},
-    beforeSend: function beforeSend(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + btoa(username));
-    },
-    type: 'GET',
-    contentType: 'json'
+    data: JSON.stringify(userPayload),
+    type: 'POST',
+    contentType: 'application/json',
+    dataType: 'json'
   });
 }
 },{"jquery":"node_modules/jquery/dist/jquery.js"}],"loginService.js":[function(require,module,exports) {
@@ -11317,7 +11316,7 @@ function showPosition(position) {
 function handelRegisterClick(event) {
   event.preventDefault();
   var username = $("#reg__username").val();
-  var hasCovid = $("#hasCovid").val();
+  var hasCovid = $("#hasCovid").val() == "true";
   (0, _registerService.register)(username, hasCovid, lat, lng).then(function () {
     showUserView();
   }).catch(function () {
@@ -11375,7 +11374,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50487" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59088" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
