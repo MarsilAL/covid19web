@@ -11216,16 +11216,18 @@ var jquery = require('jquery'); //
 
 $ = window.$ = window.jQuery = jquery;
 
-function register(username, hasCovid, lat, lng) {
+function register(username, hasCovid, lat, lng, psw) {
   // we will send this to the backend
   var userPayload = {
     username: username,
     hasCovid: hasCovid,
     latitude: lat,
-    longitude: lng
-  };
+    longitude: lng,
+    pswC: psw
+  }; //    const apiUrl = 'https://covid19ta.herokuapp.com/register';
+
   var apiUrl = 'http://localhost:8080/register';
-  return $.ajax({
+  return $.get({
     url: apiUrl,
     data: JSON.stringify(userPayload),
     type: 'POST',
@@ -11316,8 +11318,9 @@ function showPosition(position) {
 function handelRegisterClick(event) {
   event.preventDefault();
   var username = $("#reg__username").val();
+  var psw = $("#reg__psw").val();
   var hasCovid = $("#hasCovid").val() == "true";
-  (0, _registerService.register)(username, hasCovid, lat, lng).then(function () {
+  (0, _registerService.register)(username, hasCovid, lat, lng, psw).then(function () {
     showUserView();
   }).catch(function () {
     alert("fehler");
@@ -11374,7 +11377,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59088" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51919" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
