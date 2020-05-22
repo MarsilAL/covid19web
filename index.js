@@ -65,8 +65,9 @@ function handelLoginClick(event) {
   event.preventDefault();
 
   const loginUsername = $("#login__username").val();
+  const loginPSW = $("#login__psw").val();
 
-  login(loginUsername).then(() => {
+  login(loginUsername.loginPSW).then(() => {
     showUserView();
   }).catch(() => {
     alert("anmeldung fehler");

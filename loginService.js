@@ -2,19 +2,22 @@ const jquery = require('jquery')
 //
 $ = window.$ = window.jQuery = jquery;
 
-function login(loginUsername){
+function login(loginUsername, loginPSW){
     const apiUrl = 'https://covid19ta.herokuapp.com/login';
    return $.ajax({
         url: apiUrl,
         data:{
           loginUsername:loginUsername,
+          loginPSW:loginPSW
         },
           //headers: {'Authorization': 'Basic bWFkaHNvbWUxMjM='},
         beforeSend: function (xhr) {
-            xhr.setRequestHeader("Authorization", "Basic " + btoa(loginUsername));
+            xhr.setRequestHeader("Authorization", "Basic " + btoa(loginUsername,loginPSW));
         },
-        type: 'GET',
-        contentType: 'json',
+        data: JSON.stringify(userPayload),
+        type: 'POST',
+        contentType: 'application/json',
+        dataType: 'json'
     });
 }
 export {login};

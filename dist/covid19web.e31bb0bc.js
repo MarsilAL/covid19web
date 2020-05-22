@@ -11224,9 +11224,8 @@ function register(username, hasCovid, lat, lng, psw) {
     latitude: lat,
     longitude: lng,
     pswC: psw
-  }; //    const apiUrl = 'https://covid19ta.herokuapp.com/register';
-
-  var apiUrl = 'http://localhost:8080/register';
+  };
+  var apiUrl = 'https://covid19ta.herokuapp.com/register';
   return $.get({
     url: apiUrl,
     data: JSON.stringify(userPayload),
@@ -11243,25 +11242,28 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.login = login;
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var jquery = require('jquery'); //
 
 
 $ = window.$ = window.jQuery = jquery;
 
-function login(loginUsername) {
+function login(loginUsername, loginPSW) {
+  var _$$ajax;
+
   var apiUrl = 'https://covid19ta.herokuapp.com/login';
-  return $.ajax({
+  return $.ajax((_$$ajax = {
     url: apiUrl,
     data: {
-      loginUsername: loginUsername
+      loginUsername: loginUsername,
+      loginPSW: loginPSW
     },
     //headers: {'Authorization': 'Basic bWFkaHNvbWUxMjM='},
     beforeSend: function beforeSend(xhr) {
-      xhr.setRequestHeader("Authorization", "Basic " + btoa(loginUsername));
-    },
-    type: 'GET',
-    contentType: 'json'
-  });
+      xhr.setRequestHeader("Authorization", "Basic " + btoa(loginUsername, loginPSW));
+    }
+  }, _defineProperty(_$$ajax, "data", JSON.stringify(userPayload)), _defineProperty(_$$ajax, "type", 'POST'), _defineProperty(_$$ajax, "contentType", 'application/json'), _defineProperty(_$$ajax, "dataType", 'json'), _$$ajax));
 }
 },{"jquery":"node_modules/jquery/dist/jquery.js"}],"index.js":[function(require,module,exports) {
 "use strict";
@@ -11331,7 +11333,8 @@ function handelRegisterClick(event) {
 function handelLoginClick(event) {
   event.preventDefault();
   var loginUsername = $("#login__username").val();
-  (0, _loginService.login)(loginUsername).then(function () {
+  var loginPSW = $("#login__psw").val();
+  (0, _loginService.login)(loginUsername.loginPSW).then(function () {
     showUserView();
   }).catch(function () {
     alert("anmeldung fehler");
@@ -11377,7 +11380,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51919" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63336" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
