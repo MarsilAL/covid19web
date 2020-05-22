@@ -14,7 +14,6 @@ function login(loginUsername, loginPSW){
         beforeSend: function (xhr) {
             xhr.setRequestHeader("Authorization", "Basic " + btoa(loginUsername,loginPSW));
         },
-        data: JSON.stringify(userPayload),
         type: 'POST',
         contentType: 'application/json',
         dataType: 'json'
