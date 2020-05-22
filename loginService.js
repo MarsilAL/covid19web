@@ -12,7 +12,7 @@ function login(loginUsername, loginPSW){
         },
           //headers: {'Authorization': 'Basic bWFkaHNvbWUxMjM='},
         beforeSend: function (xhr) {
-            xhr.setRequestHeader("Authorization", "Basic " + btoa(loginUsername,loginPSW));
+            xhr.setRequestHeader("Authorization", "Basic " + btoa(loginUsername+":"+loginPSW));
         },
         type: 'POST',
         contentType: 'application/json',
